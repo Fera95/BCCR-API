@@ -21,7 +21,7 @@ namespace BCCRAPI.Controllers
                 cr.fi.bccr.indicadoreseconomicos.wsIndicadoresEconomicos cliente = new cr.fi.bccr.indicadoreseconomicos.wsIndicadoresEconomicos();
                // Se crea la fecha de hoy
                 DateTime Fecha_Actual = DateTime.UtcNow.Date;
-                string Hoy = Fecha_Actual.ToString("dd/MM/yyyy");
+                string Hoy = Fecha_Actual.ToString("dd");
 
 
                 //Se crea la fecha de hace 6 meses 
@@ -36,7 +36,7 @@ namespace BCCRAPI.Controllers
                 //Se convierten los datos
                 string DatoFechaHoy = Datos.Tables[0].Rows[1].ItemArray[1].ToString();
                 DateTime myDate = DateTime.Parse(DatoFechaHoy);
-                string Test = myDate.ToString("dd/MM/yyyy");
+                string Test = myDate.ToString("MM");
 
                 string tipocambioAnterior = Datos.Tables[0].Rows[0].ItemArray[2].ToString();
 
