@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
 using System.Data.SqlClient;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-/*namespace APILocal
+namespace BCCRAPI.Controllers
 {
-    class Program
+    public class InsertarController : ApiController
     {
-        static void Main(string[] args)
+        // GET api/insertar
+        public void Get()
         {
+
             try
             {
 
@@ -34,9 +39,8 @@ using System.Threading.Tasks;
                 DataSet Datos = cliente.ObtenerIndicadoresEconomicos("317", Antes, Hoy, "Esteban Ferarios", "N");
 
 
-
                 /*Se crea el string de conexion*/
-               /* var cb = new SqlConnectionStringBuilder();
+                var cb = new SqlConnectionStringBuilder();
                 cb.DataSource = "avanzadas.database.windows.net";
                 cb.UserID = "bases";
                 cb.Password = "BATEC123*";
@@ -45,9 +49,27 @@ using System.Threading.Tasks;
                 //Se obtienen las fechas y tipo de cambio de hace 6 Años 
                 int i = 0;
                 /*Se crea la conexcion*/
-                /*using (SqlConnection connection = new SqlConnection(cb.ConnectionString))
+                using (SqlConnection connection = new SqlConnection(cb.ConnectionString))
                 {
+
+                    //Se abre la conexion
                     connection.Open();
+
+                    //Se borran los datos anteriores para la prueba
+
+                    String queryBorrar = "DELETE FROM dimTipoCambio DELETE FROM dimFecha DBCC CHECKIDENT('dimFecha', RESEED, 0); DBCC CHECKIDENT ('dimTipoCambio', RESEED, 0);";
+
+                    using (SqlCommand command = new SqlCommand(queryBorrar, connection))
+                    {
+
+                        int result = command.ExecuteNonQuery();
+
+                        // Check Error
+                        if (result < 0)
+                            Console.WriteLine("Error inserting data into Database!");
+                    }
+
+                    //Se leen los datos
                     while (i != Datos.Tables[0].Rows.Count)
                     {
                         try
@@ -126,7 +148,7 @@ using System.Threading.Tasks;
 
 
 
-                            //Se Obtiene la fecha segun el i
+                            //Se Obtiene el tipo de cambio segun el i
                             String Cambio = Datos.Tables[0].Rows[i].ItemArray[2].ToString();
 
                             Cambio = Cambio.Replace(",", ".");
@@ -173,5 +195,10 @@ using System.Threading.Tasks;
                 Console.WriteLine(e);
             }
         }
+    
+
+
+               
+        
     }
-}*/
+}
