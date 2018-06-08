@@ -46,7 +46,7 @@ namespace BCCRAPI.Controllers
                 cb.Password = "BATEC123*";
                 cb.InitialCatalog = "Bases_DW";
 
-                //Se obtienen las fechas y tipo de cambio de hace 6 Años 
+                //Se inicia el while de los datos obtenidos
                 int i = 0;
                 /*Se crea la conexcion*/
                 using (SqlConnection connection = new SqlConnection(cb.ConnectionString))
